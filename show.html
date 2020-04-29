@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feedback</title>
+ 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome star Icon Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+        body{
+            margin: 0px;
+            padding: 0px;
+        }
+        div{
+            color: whitesmoke
+        }
+        .feedback{
+            border-radius: 4px;
+        }
+        .header{
+            background-color: #e81717;
+            width: 100%;
+            height: 60%;
+            padding: 20px;
+            
+        }
+        .header label{
+            text-align : center;
+        }
+        .rate{
+            background-color:whitesmoke;
+            color: black;
+            width: 100%;
+            height: 60%;
+            padding: 20px;
+            margin-left: 0px;
+            
+            
+        }
+        
+        .unchecked{
+          font-size: 40px;
+          
+        }
+        .checked {
+            color: orange;
+        }
+        .social{
+            text-align: center;
+        }
+        .social .fa {
+            text-decoration: none;
+        }
+        .fa {
+            padding: 20px;
+            font-size: 30px;
+            width: 30px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50%;
+            color: black;
+            }
+        .social .fa:hover{
+            color: #e81717;
+        }
+    </style>
+
+
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="jumbotron">
+        <div class="feedback">
+            <div class="header"> 
+                <h2 class="text-center">Your feedback have been received</label>
+                    <h5 class="text-center">By our team through email.</h5>
+                
+                <br>
+                <h4 id="name"></h4> 
+                <h4>Your feedback helps us to continously improve and provide you with best user experience. 
+                    <button type="button" class="btn btn-default" style="margin-left: 20%;" onclick="back()">Give feedback again?</button>
+                </h4>    
+            </div>
+            <div class="rate row">
+                <h3 id="rating-heading"></h3>
+                <span id="1" class="fa fa-star unchecked checked" style="color: orange;">&nbsp;</span>
+                <span id="2" class="fa fa-star unchecked">&nbsp;</span>
+                <span id="3" class="fa fa-star unchecked">&nbsp;</span>
+                <span id="4" class="fa fa-star unchecked">&nbsp;</span>
+                <span id="5" class="fa fa-star unchecked">&nbsp;</span>
+                <p id="rate"></p>
+                <p id="feedbackmsg"></p>
+                <div style="color:black;"class="page-header page center">
+                </div> 
+                <div class="social">
+                    <h5 style="color: black; text-align: center; font-weight: bold;">
+                        Get social with us
+                    </h5>
+                    <a id="fb" href="#" onclick="redirect(this)" value="fb"  class="fa fa-facebook"></a>
+                    <a id="go" href="" onclick="redirect(this)"  class="fa fa-google"></a>
+                    <a id="ln" href="" onclick="redirect(this)"   class="fa fa-linkedin"></a>
+                    <a id="yt" href=""  onclick="redirect(this)"  class="fa fa-youtube"></a>
+                    <a id= "ig" href=""  onclick="redirect(this)" value="ig" class="fa fa-instagram"></a>
+                </div>
+
+            </div>
+                 
+        </div>
+
+
+    </div>
+         
+</div>
+
+<script>
+    function redirect(e)
+    {
+        // Que: How to add value feild to an anchor tag???
+        var socialID = e.id;
+        if(socialID === "fb")
+        {
+            window.open("https://www.facebook.com", "_blank");
+        }
+        else if(socialID === "go")
+        {
+            window.open("https://www.google.com", "_blank");
+        }
+        if(socialID === "ln")
+        {
+            window.open("https://www.linkedin.com", "_blank");
+        }
+        if(socialID === "yt")
+        {
+            window.open("https://www.youtube.com", "_blank");
+        }
+        if(socialID === "ig")
+        {
+            window.open("https://www.instagram.com", "_blank");
+        }
+
+        // ON FB ICON CLICK : DEBUGGING THINGS
+        //console.log("this is: " +e)// this is: file:///D:/Paxcom/JavaScript/Feedback/show.html# current url path
+        //console.log(e.id +" " +e.value +" " +(e.id).value) //on fb icon click e.id=fb and e.value= undefined (e.id).value=undefined
+        //console.log(typeof(e.id)); // string
+        // How do I accociate a value to anchor tag?
+       // var id=document.getElementById("fb");
+       // console.log(id); // <a id="fb" href="#" onclick="redirect(this)" value="fb" class="fa fa-facebook"></a>
+        
+        //// Simulate a mouse click:
+        //window.location.href = "http://www.google.com";  
+        // Simulate an HTTP redirect:
+        //window.location.replace("http://www.w3schools.com");
+        //if(document.getElementById("fb") == true)
+           // window.open("https://www.facebook.com", "_blank");
+
+        //if(document.getElementById("ig") == true)
+           // window.open("https://www.instagram.com", "_blank");  
+  
+    }
+
+    // SHOW THE NAME OF THE USER FORM THE URL PARAMETERS:
+    window.onload = function()
+    {
+        var url_string = (window.location.href).toLowerCase();
+        //console.log("String is: " +url_string);
+        var url = new URL(url_string);
+        console.log(url); // returns a URL object with https properties like href, origin username, password, search, searchParams
+        //console.log(url.search); ?name=mukul+garg&email=mukul.garg%40paxcom.net&age=22&number=7018936121
+        var name = "";
+        if(url.searchParams.get("name")!=null)
+        {
+            name = url.searchParams.get("name");
+            console.log(name);
+            name = name[0].toUpperCase() + name.slice(1); // convert first letter of user to uppercase
+            console.log(name); //mukul garg
+        }
+        else{
+            name ="user";
+            console.log(name);
+        }
+        
+        document.getElementById("name").innerHTML = `Thank you, ${name}`;
+    }
+    // DEBUGGING "1" != ""1""
+    //var getRating = localStorage.getItem('rating'); this was giving string with quotes surrounded to it :"1" != var one = "1" 
+    //console.log(getRating); // prints "1" because i am stroing sting ko stringify krky which makes string 1 to string "1"
+    // console.log(getRatingNumber); // prints 1
+    //console.log(typeof(getRatingNumber)); // string
+     //console.log(getRating == one); // false
+    //console.log(getRatingNumber == one); // true
+    //console.log(typeof(getRating)); // string
+    //console.log(getRating.startsWith("1")); // false
+    //console.log(getRating == "1"); // false
+    //console.log(getRating === "1"); // false
+    var getRatingNumber = JSON.parse(localStorage.getItem('rating')); // parse the rating string from "1" to 1 (as string)
+    var pid = document.getElementById("rate");
+    if(getRatingNumber.startsWith("1"))
+    {
+        pid.innerHTML = "<h4>You rated: 1-Terrible</h4>";
+        document.getElementById("rating-heading").innerHTML = 
+        `<h4>We are extremely sorry to know that. We will definately work on your feedback in order to make your experience better.</h4>`
+
+
+    }
+    else if(getRatingNumber === "2")
+    {
+        pid.innerHTML = "You rated: 2-Bad";
+        document.getElementById("2").style.color = "orange";
+        document.getElementById("3").style.color = "black";
+        document.getElementById("4").style.color = "black";
+        document.getElementById("5").style.color = "black";
+        document.getElementById("rating-heading").innerHTML = 
+        `<h3>We are sorry to know that. We will definately work on your feedback in order to make your experience better.</h3>`
+    }
+       
+    
+    else if(getRatingNumber === "3")
+    {
+        pid.innerHTML = "You rated: 3-Average";
+        document.getElementById("2").style.color = "orange";
+        document.getElementById("3").style.color = "orange";
+        document.getElementById("4").style.color = "black";
+        document.getElementById("5").style.color = "black";
+        document.getElementById("rating-heading").innerHTML = 
+        `We are happy that you liked.`
+        
+    }
+        
+    
+    else if(getRatingNumber === "4")
+    {
+        pid.innerHTML = "You rated: 4-Good";
+        document.getElementById("2").style.color = "orange";
+        document.getElementById("3").style.color = "orange";
+        document.getElementById("4").style.color = "orange";
+        document.getElementById("5").style.color = "black";
+        document.getElementById("rating-heading").innerHTML = 
+        `We are happy that you are enjoying.`
+    }
+        
+    
+    else if(getRatingNumber === "5")
+    {
+        pid.innerHTML = "You rated: 5-Excellent";
+        document.getElementById("2").style.color = "orange";
+        document.getElementById("3").style.color = "orange";
+        document.getElementById("4").style.color = "orange";
+        document.getElementById("5").style.color = "orange";
+        document.getElementById("rating-heading").innerHTML = 
+        `We are glad that you are enjoying.`
+    }
+    
+    // Get feedback msg from user
+    var getmsg = localStorage.getItem('message');
+    document.getElementById('feedbackmsg').innerHTML = "<h4>Your feedback message: " +getmsg +"<h4>";
+
+    function back(){
+        window.location.href = 'feedback.html';
+    }
+
+</script>
+</html>
